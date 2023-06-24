@@ -2,8 +2,19 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Session\TokenMismatchException;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response as HttpStatusCode;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 
 class Handler extends ExceptionHandler
 {
@@ -22,7 +33,15 @@ class Handler extends ExceptionHandler
      * @var array<int, class-string<\Throwable>>
      */
     protected $dontReport = [
-        //
+        JWTException::class,
+        TokenExpiredException::class,
+        TokenBlacklistedException::class,
+        ValidationException::class,
+        AuthorizationException::class,
+        AuthenticationException::class,
+        NotFoundHttpException::class,
+        ModelNotFoundException::class,
+        TokenMismatchException::class
     ];
 
     /**
@@ -46,5 +65,71 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function report(Throwable $e)
+    {
+        /** @phpstan-ignore-next-line */
+        return parent::report($e);
+    }
+
+    public function render($request, Throwable $exception)
+    {
+        $statusCode = HttpStatusCode::HTTP_BAD_REQUEST;
+        $errors      = [];
+        $message     = 'An error has occurred';
+        $messageCode = '';
+
+        switch (true) {
+            case $exception instanceof ValidationException:
+                $message = 'errors validation';
+                $statusCode = HttpStatusCode::HTTP_UNPROCESSABLE_ENTITY;
+                $errors = $exception->errors();
+                break;
+
+            case $exception instanceof AuthenticationException:
+                $message = 'Unauthenticated';
+                $statusCode = HttpStatusCode::HTTP_UNAUTHORIZED;
+                $messageCode = 'session.not_found';
+                break;
+            
+            case $exception instanceof AuthorizationException:
+                $message = 'Forbidden Access to this resource on the server is denied';
+                $statusCode = HttpStatusCode::HTTP_FORBIDDEN;
+                $messageCode = 'Forbidden';
+                break;
+
+            case $exception instanceof NotFoundHttpException:
+                $message = 'Route Not Found';
+                $statusCode = HttpStatusCode::HTTP_NOT_FOUND;
+                $messageCode = 'route.not_found';
+                break;
+
+
+            case $exception instanceof ModelNotFoundException:
+                $message = 'record not found';
+                $statusCode = HttpStatusCode::HTTP_NOT_FOUND;
+                $messageCode = 'record.not_found';
+                break;
+
+            case $exception instanceof MaintenanceModeException:
+                $message = 'server has been maintain!';
+                $statusCode = HttpStatusCode::HTTP_SERVICE_UNAVAILABLE;
+                break;
+
+            case $exception instanceof HttpException:
+                $message = $exception->getMessage();
+                break;
+            default:
+                break;
+        }
+
+        return $request->accepts(['application/json', '*/*'])
+            ? response()->json([
+                'message' => $message,
+                'errors'  => $errors,
+                'messageCode'  => $messageCode,
+                ], $statusCode)
+            : response($message, HttpStatusCode::HTTP_BAD_REQUEST);
     }
 }
