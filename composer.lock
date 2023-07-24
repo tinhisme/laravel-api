@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0ee14fdc3e1490b06ea32be3876f6a14",
+    "content-hash": "eace7805ede01e2b6b9bf62e8efb5a0e",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -9584,6 +9584,59 @@
                 }
             ],
             "time": "2021-07-28T10:34:58+00:00"
+        },
+        {
+            "name": "timwassenburg/laravel-action-generator",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/timwassenburg/laravel-action-generator.git",
+                "reference": "b8e11947ce33856614cedbf38445e064b7f8ff48"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/timwassenburg/laravel-action-generator/zipball/b8e11947ce33856614cedbf38445e064b7f8ff48",
+                "reference": "b8e11947ce33856614cedbf38445e064b7f8ff48",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "TimWassenburg\\ActionGenerator\\ActionGeneratorServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TimWassenburg\\ActionGenerator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Wassenburg"
+                }
+            ],
+            "description": "Generate Laravel actions",
+            "homepage": "https://github.com/timwassenburg/laravel-action-generator",
+            "keywords": [
+                "action",
+                "artisan",
+                "cli",
+                "generator",
+                "laravel",
+                "pattern",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/timwassenburg/laravel-action-generator/issues",
+                "source": "https://github.com/timwassenburg/laravel-action-generator/tree/v1.0.0"
+            },
+            "time": "2021-11-14T10:48:29+00:00"
         }
     ],
     "aliases": [],
