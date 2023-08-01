@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Admin\Auth\AdminLoginController;
+use App\Http\Controllers\User\Auth\UserVerifyEmailController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 
-Route::get('/', [UserController::class, 'index']);
+Route::post('/login', [AdminLoginController::class, 'handle']);
+Route::post('/refresh-token', [AdminLoginController::class, 'handle']);

@@ -111,7 +111,6 @@ trait ActionModelTraits
             $data['created_by'] = Auth::id();
             $data['updated_by'] = Auth::id();
         }
-
         try {
             $model = $this->model->insertGetId($data);
         } catch (\PDOException $exception) {

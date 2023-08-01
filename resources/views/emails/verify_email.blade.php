@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
     <meta charset="utf-8">
-    <title>Password Reset</title>
+    <title>Email Confirmation</title>
     <style>
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -35,7 +35,7 @@
 
         .cta-button {
             display: inline-block;
-            background-color: #007bff;
+            background-color: #0056b3;
             color: #fff;
             padding: 12px 30px;
             font-size: 18px;
@@ -46,45 +46,39 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .cta-button:hover {
-            background-color: #0056b3;
-        }
-
         .footer {
             color: #777;
             font-size: 14px;
             text-align: center;
         }
 
-        .background-image {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
     </style>
 </head>
 <body>
     <table class="container" cellpadding="0" cellspacing="0">
         <tr>
             <td>
-                <h2>Password Reset</h2>
+                <h2>Verify Your Email Address</h2>
                 <p>
                     Hi {{ $name }},
                 </p>
                 <p>
-                    We received a request to reset your account password. If you made this request, click the button below to reset your password.
+                    Thank you for joining our verification demo app! We're excited to have you on board.
                 </p>
                 <p>
-                    <a href="{{ $urlResetPassword }}" class="cta-button">
-                        Reset Password
+                    To start using your account, please verify your email address by clicking the button below:
+                </p>
+                <p>
+                    <a href="{{ $urlVerify}}" class="cta-button">
+                        Verify Email Address
                     </a>
                 </p>
                 <p>
-                    If you did not initiate this request, please ignore this email. Your account is secure.
+                    If you didn't create an account with us, no action is required, and you can disregard this email.
                 </p>
                 <p class="footer">
                     Best regards,<br>
-                    Your Company Name
+                    The Verification Demo Team
                 </p>
             </td>
         </tr>
