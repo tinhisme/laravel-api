@@ -3,10 +3,7 @@
 namespace App\Http\Actions\User\Auth;
 
 use Carbon\Carbon;
-use App\Models\User;
-use App\Helpers\Common;
 use App\Repositories\UserRepository;
-use App\Domain\User\Tasks\RegisterTask;
 use App\Http\Shared\Actions\BaseAction;
 use App\Exceptions\AuthenticateException;
 

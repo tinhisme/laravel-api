@@ -3,10 +3,7 @@
 namespace App\Http\Actions\Seller\Auth;
 
 use Carbon\Carbon;
-use App\Models\Seller;
-use App\Helpers\Common;
 use App\Repositories\UserRepository;
-use App\Domain\Seller\Tasks\RegisterTask;
 use App\Http\Shared\Actions\BaseAction;
 use App\Exceptions\AuthenticateException;
 

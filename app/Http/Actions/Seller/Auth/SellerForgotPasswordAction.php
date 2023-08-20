@@ -2,8 +2,7 @@
 
 namespace App\Http\Actions\Seller\Auth;
 
-use App\Repositories\SellerRepository;
-use Illuminate\Support\Facades\Lang;
+use App\Repositories\UserRepository;
 use App\Http\Shared\Actions\BaseAction;
 use App\Exceptions\AuthenticateException;
 use App\Http\Tasks\Auth\ForgotPasswordTask;
@@ -12,7 +11,7 @@ class SellerForgotPasswordAction extends BaseAction
 {
     protected $userRepository;
 
-    public function __construct(SellerRepository $userRepository)
+    public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
