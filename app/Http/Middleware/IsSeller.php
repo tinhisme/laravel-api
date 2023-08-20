@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use App\Exceptions\AuthenticateException;
 
-class IsUser
+class IsSeller
 {
     /**
      * Handle an incoming request.
@@ -23,7 +23,7 @@ class IsUser
         if (Auth::guard('api')->check()) {
             $user = Auth::guard('api')->user();
             $roleUserName = optional($user->getRelationValue('role'))->name;
-            if ($roleUserName == Role::ROLE_USER) {
+            if ($roleUserName == Role::ROLE_SELLER) {
                 return $next($request);
             } else {
                 throw AuthenticateException::code(Lang::get('errors.cant_access_this_page'))->setMessageCode('400');
