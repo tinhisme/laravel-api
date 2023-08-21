@@ -43,7 +43,6 @@ class RegisterTask
         }
         
         $user = $this->userRepository->findByField('id', $userId)->first();
-
         // logic send email verify user after register account
         resolve(SendVerifyEmailTask::class)->handle($dataUser);
         

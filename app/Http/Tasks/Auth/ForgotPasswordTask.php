@@ -3,6 +3,7 @@
 namespace App\Http\Tasks\Auth;
 
 use Carbon\Carbon;
+use App\Models\Role;
 use Illuminate\Support\Str;
 use App\Models\PasswordReset;
 use App\Jobs\SendResetPasswordJob;
@@ -24,11 +25,8 @@ class ForgotPasswordTask
      */
     public function handle($user, $request)
     {
-        // if ($user->getAttribute('status') == false) {
-        //     throw AuthenticateException::code(Lang::get('error_message.auth.not_allowed_to_use'), [], 400)
-        //         ->setMessageCode('400');
-        // }
-
+        $roleName = $user->getRelationValue('role')->name;
+        $url = $roleName == Role::ROLE_USER ? config('common.user_site_url') : config('common.seller_site_url');
         $passwordReset = PasswordReset::updateOrCreate([
             'email' => $user->getAttribute('email'),
         ], [
@@ -37,8 +35,8 @@ class ForgotPasswordTask
         
         $encryptEmail = Crypt::encryptString($user->getAttribute('email'));
         
-        $redirectUrl = $request->get('redirect_url') . '?email=' . $encryptEmail . '&token=' . $passwordReset->token;
-        
+        $redirectUrl = $url. '?email=' . $encryptEmail . '&token=' . $passwordReset->token;
+        dd($redirectUrl);
         $expiredTime = Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->addHours(24)->format('Y/m/d H:i:s');
         
         $response = $this->sendResetLink($user->getAttribute('email'), $user->getAttribute('name'), $redirectUrl, $expiredTime);

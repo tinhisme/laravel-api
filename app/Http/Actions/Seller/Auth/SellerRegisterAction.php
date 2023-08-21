@@ -16,6 +16,6 @@ class SellerRegisterAction extends BaseAction
      */
     public function handle()
     {
-        return resolve(RegisterTask::class)->handle($this->request, Role::USER);
+        return resolve(RegisterTask::class)->handle($this->request, Role::SELLER);
     }
 }

@@ -2,8 +2,9 @@
 
 namespace App\Http\Tasks\Auth;
 
-use App\Jobs\SendVerifyEmailUserJob;
+use App\Models\Role;
 use App\Mail\SendVerifyEmail;
+use App\Jobs\SendVerifyEmailUserJob;
 use App\Repositories\UserRepository;
 
 class SendVerifyEmailTask
@@ -18,9 +19,9 @@ class SendVerifyEmailTask
 
     public function handle($dataUser)
     {
+        $url = $dataUser['role_id'] == Role::USER ? config('common.user_site_url') : config('common.seller_site_url');
         $tokenVerify = $dataUser['token_verify'];
-        $urlVerify = config('common.user_site_url') 
-        . 'verify-email?token='. $tokenVerify.'&email='.$dataUser['email'];
+        $urlVerify = $url . 'verify-email?token='. $tokenVerify.'&email='.$dataUser['email'];
 
         $verifyEmail = new SendVerifyEmail($urlVerify, $dataUser['email'], $dataUser['name']);
 

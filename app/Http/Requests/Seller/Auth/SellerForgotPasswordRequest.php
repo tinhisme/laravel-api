@@ -24,8 +24,7 @@ class SellerForgotPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required',
-            'redirect_url' => 'required|string',
+            'email' => 'required|email|exists:users,email',
         ];
     }
 }
