@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Domain\Auth\Tasks\Auth;
+namespace App\Http\Tasks\Auth;
 
 class RefreshTokenTask
 {
-    public function refresh()
+    public function handle()
     {
         $newToken = auth()->refresh();
         return $this->respondWithToken($newToken);

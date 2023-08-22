@@ -2,7 +2,7 @@
 
 namespace App\Http\Tasks\Auth;
 
-use Exception;
+
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Repositories\UserRepository;
 use App\Exceptions\AuthenticateException;

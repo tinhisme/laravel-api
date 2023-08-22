@@ -4,10 +4,8 @@ namespace App\Http\Tasks\Auth;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
-use App\Exceptions\AuthenticateException;
 use App\Http\Tasks\Auth\SendVerifyEmailTask;
 
 class RegisterTask

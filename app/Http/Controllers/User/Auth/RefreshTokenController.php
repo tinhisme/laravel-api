@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Auth;
+namespace App\Http\Controllers\User\Auth;
 
 use Illuminate\Routing\Controller;
 use App\Http\Tasks\Auth\RefreshTokenTask;

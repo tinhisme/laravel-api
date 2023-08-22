@@ -25,7 +25,7 @@ class Common
         return $total;
     }
 
-        /**
+    /**
      * @param \Illuminate\Database\Eloquent\Model $latestRecord
      * @return array
      */

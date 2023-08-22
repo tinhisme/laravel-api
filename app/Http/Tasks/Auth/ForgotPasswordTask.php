@@ -9,9 +9,7 @@ use App\Models\PasswordReset;
 use App\Jobs\SendResetPasswordJob;
 use App\Mail\SendResetPasswordEmail;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
-use App\Exceptions\AuthenticateException;
 use Illuminate\Validation\ValidationException;
 
 class ForgotPasswordTask

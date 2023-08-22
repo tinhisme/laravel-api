@@ -3,15 +3,8 @@
 namespace App\Http\Tasks\Auth;
 
 use Carbon\Carbon;
-use Illuminate\Support\Str;
-use App\Models\PasswordReset;
-use App\Jobs\SendResetPasswordJob;
-use App\Mail\SendResetPasswordEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Crypt;
 use App\Exceptions\AuthenticateException;
 use Illuminate\Validation\ValidationException;
 
