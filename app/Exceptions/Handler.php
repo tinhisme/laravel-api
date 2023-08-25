@@ -3,18 +3,19 @@
 namespace App\Exceptions;
 
 use Throwable;
-use Illuminate\Auth\Access\AuthorizationException;
+use App\Exceptions\BaseException;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Auth\AuthenticationException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpFoundation\Response as HttpStatusCode;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
+use Illuminate\Auth\Access\AuthorizationException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpFoundation\Response as HttpStatusCode;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -84,6 +85,7 @@ class Handler extends ExceptionHandler
             case $exception instanceof ValidationException:
                 $message = 'errors validation';
                 $statusCode = HttpStatusCode::HTTP_UNPROCESSABLE_ENTITY;
+                $messageCode = 422;
                 $errors = $exception->errors();
                 break;
 
@@ -116,10 +118,17 @@ class Handler extends ExceptionHandler
                 $message = 'server has been maintain!';
                 $statusCode = HttpStatusCode::HTTP_SERVICE_UNAVAILABLE;
                 break;
+                
+            case $exception instanceof BaseException:
+                $message = $exception->getMessage();
+                $messageCode = method_exists($exception, 'getMessageCode') ? $exception->getMessageCode() : null;
+                $statusCode = $exception->getCode();
+                break;
 
             case $exception instanceof HttpException:
                 $message = $exception->getMessage();
                 break;
+
             default:
                 break;
         }
