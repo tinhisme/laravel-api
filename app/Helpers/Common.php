@@ -2,10 +2,13 @@
 
 namespace App\Helpers;
 
+use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use App\Exceptions\AuthenticateException;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 
 class Common
@@ -17,7 +20,8 @@ class Common
      *
      * @param array $arrayNumber;
      */
-    public static function bcSum($arrayNumber){
+    public static function bcSum($arrayNumber)
+    {
         $total = '0';
         foreach ($arrayNumber as $val) {
             $total = bcadd($total, $val, config('common.precision'));
@@ -41,5 +45,60 @@ class Common
             'user_updated' => $userUpdated,
             'updated_at_latest' => $updatedAtLatest,
         ];
+    }
+
+    /**
+     * @param array $data
+     * @param bool $createdBy
+     * @return array|mixed
+     */
+    public static function getDataInsert($data, $createdBy = true)
+    {
+        $data['created_at'] = Carbon::now()->format('Y-m-d H:i:s');
+        $data['updated_at'] = Carbon::now()->format('Y-m-d H:i:s');
+        if ($createdBy) {
+            $data['created_by'] = Auth::id();
+            $data['updated_by'] = Auth::id();
+        }
+        
+        return $data;
+    }
+
+        /**
+     * @param array $data
+     * @param bool $createdBy
+     * @return array|mixed
+     */
+    public static function getDataUpdate($data, $createdBy = true)
+    {
+        $data['updated_at'] = Carbon::now()->format('Y-m-d H:i:s');
+        if ($createdBy) {
+            $data['created_by'] = Auth::id();
+            $data['updated_by'] = Auth::id();
+        }
+        
+        return $data;
+    }
+
+    /**
+     * @param string $pathImage
+     * @param string $folder
+     * @return string
+     */
+    public static function uploadImageWithCloudinary($pathImage, $folder)
+    {
+        try {
+            return Cloudinary::upload(
+                $pathImage,
+                [
+                    "folder" => $folder,
+                    "overwrite" => TRUE,
+                    "resource_type" => "auto"
+                ]
+            )->getSecurePath();
+
+        } catch (\Throwable $e) {
+            Log::error($e);
+        }
     }
 }

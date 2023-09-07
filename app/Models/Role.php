@@ -14,8 +14,8 @@ class Role extends Model
     const ROLE_SELLER = 'seller';
 
     const ADMIN = 1;
-    const SELLER = 2;
-    const USER = 3;
+    const SELLER = 3;
+    const USER = 2;
 
     const ROLES = [self::ROLE_SELLER, self::ROLE_ADMIN, self::ROLE_USER];
 

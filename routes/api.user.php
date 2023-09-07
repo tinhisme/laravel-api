@@ -8,6 +8,7 @@ use App\Http\Controllers\User\Auth\UserVerifyEmailController;
 use App\Http\Controllers\User\Auth\UserResetPasswordController;
 use App\Http\Controllers\User\Auth\UserChangePasswordController;
 use App\Http\Controllers\User\Auth\UserForgotPasswordController;
+use App\Http\Controllers\User\Category\UserListCategoryController;
 
 Route::post('/register', [UserRegisterController::class, 'handle']);
 Route::post('/login', [UserLoginController::class, 'handle']);
@@ -20,4 +21,8 @@ Route::post('/refresh-token', [RefreshTokenController::class, 'handle']);
 Route::middleware(['auth:api', 'isUser'])->group(function() {
     Route::get('/logout', [UserLogoutController::class, 'handle']);
     Route::put('/change-password',[UserChangePasswordController::class , 'handle']);
+
+    Route::group(['prefix'=>'category'], function(){
+        Route::get('/', [UserListCategoryController::class, 'handle']);
+    });
 });
