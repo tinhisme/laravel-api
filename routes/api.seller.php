@@ -9,6 +9,7 @@ use App\Http\Controllers\Seller\Auth\SellerVerifyEmailController;
 use App\Http\Controllers\Seller\Auth\SellerResetPasswordController;
 use App\Http\Controllers\Seller\Auth\SellerChangePasswordController;
 use App\Http\Controllers\Seller\Auth\SellerForgotPasswordController;
+use App\Http\Controllers\Seller\Category\SellerListCategoryController;
 
 Route::post('/register', [SellerRegisterController::class, 'handle']);
 Route::post('/login', [SellerLoginController::class, 'handle']);
@@ -21,4 +22,9 @@ Route::middleware(['auth:api', 'isSeller'])->group(function() {
     Route::post('/refresh-token', [RefreshTokenController::class, 'handle']);
     Route::get('/logout', [SellerLogoutController::class, 'handle']);
     Route::put('/change-password',[SellerChangePasswordController::class , 'handle']);
+
+    Route::group(['prefix'=>'category'], function(){
+        Route::get('/', [SellerListCategoryController::class, 'handle']);
+    });
 });
+

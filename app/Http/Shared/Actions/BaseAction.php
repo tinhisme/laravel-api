@@ -75,21 +75,6 @@ abstract class BaseAction
         }
 
         if (!is_null($listInsertRecord)) {
-            // total emissions of inserted records by treatment method
-            // when pattern is pattern_s3_c5 & pattern_s3_c12
-            if (isset($listInsertRecord['total_treatment_insert'])) {
-                $data['total_treatment_insert'] = $listInsertRecord['total_treatment_insert'];
-                unset($listInsertRecord['total_treatment_insert']);
-            }
-
-            // total emissions of inserted records
-            // when register data
-            if (isset($listInsertRecord[0]) && isset($listInsertRecord['total_record_insert'])) {
-                unset($listInsertRecord['total_record_insert']);
-                $totalRecordInsert = Common::bcSum(array_filter(array_column($listInsertRecord, 'emissions')));
-                $data['total_record_insert'] = $totalRecordInsert;
-            }
-
             if ($action !== 'delete_success') {
                 $data['record_insert'] = $listInsertRecord;
             }
