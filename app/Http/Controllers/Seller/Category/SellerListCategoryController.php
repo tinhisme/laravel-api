@@ -13,7 +13,7 @@ class SellerListCategoryController extends Controller
      * @param SellerListCategoryRequest $request
      * @return mixed
      */
-    public function handle(SellerListCategoryRequest $request)
+    public function __invoke(SellerListCategoryRequest $request)
     {
         $data = resolve(SellerListCategoryAction::class)->setRequest($request)->handle();
         return $data;

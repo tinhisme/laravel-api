@@ -12,7 +12,7 @@ class AdminUpdateCategoryController extends Controller
      * @param AdminUpdateCategoryRequest $request
      * @return mixed
      */
-    public function handle(AdminUpdateCategoryRequest $request)
+    public function __invoke(AdminUpdateCategoryRequest $request)
     {
         $data = resolve(AdminUpdateCategoryAction::class)->setRequest($request)->handle();
         return $data;

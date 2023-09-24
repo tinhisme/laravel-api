@@ -12,7 +12,7 @@ class SellerResetPasswordController extends Controller
      * @param SellerResetPasswordRequest $request
      * @return mixed
      */
-    public function handle(SellerResetPasswordRequest $request)
+    public function __invoke(SellerResetPasswordRequest $request)
     {
         $data = resolve(SellerResetPasswordAction::class)->setRequest($request)->handle();
         return $data;

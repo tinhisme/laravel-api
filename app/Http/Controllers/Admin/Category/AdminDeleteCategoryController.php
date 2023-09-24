@@ -12,7 +12,7 @@ class AdminDeleteCategoryController extends Controller
      * @param AdminDeleteCategoryRequest $request
      * @return mixed
      */
-    public function handle(AdminDeleteCategoryRequest $request)
+    public function __invoke(AdminDeleteCategoryRequest $request)
     {
         $data = resolve(AdminDeleteCategoryAction::class)->setRequest($request)->handle();
         return $data;

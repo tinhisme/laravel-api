@@ -8,7 +8,7 @@ use App\Http\Requests\Seller\Auth\SellerRegisterRequest;
 
 class SellerRegisterController extends Controller
 {
-    public function handle(SellerRegisterRequest $request)
+    public function __invoke(SellerRegisterRequest $request)
     {
         $data = resolve(SellerRegisterAction::class)->setRequest($request)->handle();
         return $data;

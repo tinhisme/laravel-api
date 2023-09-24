@@ -16,7 +16,7 @@ class AdminListCategoryController extends Controller
      * @param AdminListCategoryRequest $request
      * @return mixed
      */
-    public function handle(AdminListCategoryRequest $request)
+    public function __invoke(AdminListCategoryRequest $request)
     {
         $data = resolve(AdminListCategoryAction::class)->setRequest($request)->handle();
         return $data;

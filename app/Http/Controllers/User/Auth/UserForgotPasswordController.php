@@ -12,7 +12,7 @@ class UserForgotPasswordController extends Controller
      * @param UserForgotPasswordRequest $request
      * @return mixed
      */
-    public function handle(UserForgotPasswordRequest $request)
+    public function __invoke(UserForgotPasswordRequest $request)
     {
         $data = resolve(UserForgotPasswordAction::class)->setRequest($request)->handle();
         return $data;

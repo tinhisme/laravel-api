@@ -1,24 +1,37 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\Auth\AdminLoginController;
-use App\Http\Controllers\Admin\Auth\AdminLogoutController;
-use App\Http\Controllers\Admin\Auth\RefreshTokenController;
-use App\Http\Controllers\Admin\Category\AdminCreateCategoryController;
-use App\Http\Controllers\Admin\Category\AdminListCategoryController;
-use App\Http\Controllers\Admin\Category\AdminUpdateCategoryController;
-use App\Http\Controllers\Admin\Category\AdminDeleteCategoryController;
 
-Route::post('/login', [AdminLoginController::class, 'handle']);
+Route::group([
+    'namespace' => 'Admin\Auth',
+], function () {
+    Route::post('/login', 'AdminLoginController');
+});
 
-Route::middleware(['auth:api', 'isAdmin'])->group(function() {
-    Route::post('/refresh-token', [RefreshTokenController::class, 'handle']);
-    Route::get('/logout', [AdminLogoutController::class, 'handle']);
-   
-    Route::group(['prefix'=>'category'], function(){
-        Route::post('/', [AdminCreateCategoryController::class, 'handle']);
-        Route::get('/', [AdminListCategoryController::class, 'handle']);
-        Route::put('/', [AdminUpdateCategoryController::class, 'handle']);
-        Route::delete('/', [AdminDeleteCategoryController::class, 'handle']);
+Route::group([
+    'middleware' => ['auth:api', 'isAdmin'],
+], function () {
+    Route::group([
+        'namespace' => 'Admin\Auth',
+    ], function () {
+        Route::post('/refresh-token', 'RefreshTokenController');
+        Route::get('/logout', 'AdminLogoutController');
+    });
+
+    Route::group([
+        'namespace' => 'Admin\Category',
+        'prefix' => 'category', 
+    ], function () {
+        Route::post('/', 'AdminCreateCategoryController');
+        Route::get('/', 'AdminListCategoryController');
+        Route::put('/', 'AdminUpdateCategoryController');
+        Route::delete('/', 'AdminDeleteCategoryController');
+
+        Route::post('/attribute-type', 'AdminCreateAttributeTypeController');
+        Route::post('/attribute-value', 'AdminCreateAttributeValueController');
+        Route::post('/attribute', 'AdminCreateAttributeController');
+
+        Route::get('/attribute', 'AdminListAttributeController');
+        Route::get('/attribute-type', 'AdminListAttributeTypeController');
     });
 });

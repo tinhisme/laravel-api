@@ -7,7 +7,7 @@ use Illuminate\Routing\Controller;
 class AdminLogoutController extends Controller
 {
 
-    public function handle()
+    public function __invoke()
     {
         auth()->logout();
 

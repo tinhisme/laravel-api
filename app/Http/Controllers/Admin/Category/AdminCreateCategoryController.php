@@ -12,7 +12,7 @@ class AdminCreateCategoryController extends Controller
      * @param AdminCreateCategoryRequest $request
      * @return mixed
      */
-    public function handle(AdminCreateCategoryRequest $request)
+    public function __invoke(AdminCreateCategoryRequest $request)
     {
         $data = resolve(AdminCreateCategoryAction::class)->setRequest($request)->handle();
         return $data;
