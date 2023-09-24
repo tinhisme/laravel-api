@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AdminCreateAttributeRequest extends FormRequest
+class AdminCreateAttributeValueRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +23,13 @@ class AdminCreateAttributeRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|string',
-            'category_id' => 'nullable|integer|exists:categories,id',
-            'attribute_type_ids.*' => 'nullable|integer|exists:attribute_types,id',
-        ];  
+        $rules = [];
+
+        foreach ($this->get('data') as $key => $value) {
+            $rules['data.' . $key . '.name'] = 'required|string';
+            $rules['data.' . $key . '.attribute_id'] = 'nullable|integer|exists:attributes,id';
+        }
+
+        return $rules;
     }
 }

@@ -13,7 +13,7 @@ class AdminListAttributeController extends Controller
      * @param AdminListAttributeRequest $request
      * @return mixed
      */
-    public function handle(AdminListAttributeRequest $request)
+    public function __invoke(AdminListAttributeRequest $request)
     {
         $data = resolve(AdminListAttributeAction::class)->setRequest($request)->handle();
         return $data;

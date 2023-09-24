@@ -10,48 +10,31 @@ class ListAttributeTask
     public function handle($request)
     {
         $categoryId = $request['category_id'];
-        $parentNodes = Attribute::where('category_id', $categoryId)->get();
-
-        $data = [];
-
-        foreach ($parentNodes as $parentNode) {
-            $parentNodeData = self::buildTree($parentNode);
-            $data[] = $parentNodeData;
-        }
-        return $data;
+        $attributes = Attribute::where('category_id', $categoryId)->get();
+        return $this->buildTree($attributes);
     }
     
-    function buildTree($parentNode, $isParentNode = true) {
-        $attributeIds = [];
-        
-        if ($isParentNode && $parentNode->isRoot()) {
-            $attributeTypeValues = $parentNode->attribute_type_id;
-            foreach ($attributeTypeValues as $attributeTypeValue) {
-                $attribute = AttributeType::where('id', $attributeTypeValue)->first();
-                if ($attribute) {
-                    $attributeIds[] = $attribute->name;
+    function buildTree($attributes) 
+    {
+        return $attributes->map(function ($attribute) {
+            $attributeTypeIds = $attribute->attribute_type_id;
+            if(!empty($attributeTypeIds)){
+                foreach ($attributeTypeIds as $attributeTypeId) {
+                    $attributeType = AttributeType::where('id', $attributeTypeId)->first();
+                    if ($attributeType) {
+                        $attributeTypes[] = $attributeType->name;
+                    }
                 }
             }
-        }
 
-        $data = [
-            'id' => $parentNode->id,
-            'name' => $parentNode->name,
-            'children' => [],
-        ];
+            $data = [
+                'id' => $attribute->id,
+                'name' => $attribute->name,
+                'children' => $attribute?->getRelationValue('attributeValues')->toArray(),
+                'attribute_type' => !empty($attributeTypes) ? $attributeTypes : null,
+            ];
 
-        if ($isParentNode) {
-            $data['attribute_type'] = $attributeIds;
-        }
-
-        $children = $parentNode->descendants;
-
-        foreach ($children as $child) {
-            $childData = self::buildTree($child, false);
-
-            $data['children'][] = $childData;
-        }
-
-        return $data;
+            return $data;
+        });
     }
 }

@@ -17,7 +17,7 @@ class Json implements CastsAttributes
      */
     public function get($model, $key, $value, $attributes)
     {
-        return array_map('intval', explode(',', trim($value, '{}')));
+        return $value == null ? null : array_map('intval', explode(',', trim($value, '{}')));
     }
  
     /**

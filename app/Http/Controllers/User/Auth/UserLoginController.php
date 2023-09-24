@@ -12,7 +12,7 @@ class UserLoginController extends Controller
      * @param UserLoginRequest $request
      * @return mixed
      */
-    public function handle(UserLoginRequest $request)
+    public function __invoke(UserLoginRequest $request)
     {
         $data = resolve(UserLoginAction::class)->setRequest($request)->handle();
         return $data;

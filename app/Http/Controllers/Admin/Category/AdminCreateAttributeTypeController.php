@@ -12,7 +12,7 @@ class AdminCreateAttributeTypeController extends Controller
      * @param AdminCreateAttributeTypeRequest $request
      * @return mixed
      */
-    public function handle(AdminCreateAttributeTypeRequest $request)
+    public function __invoke(AdminCreateAttributeTypeRequest $request)
     {
         $data = resolve(AdminCreateAttributeTypeAction::class)->setRequest($request)->handle();
         return $data;

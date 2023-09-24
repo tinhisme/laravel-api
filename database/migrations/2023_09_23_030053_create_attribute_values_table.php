@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kalnoy\Nestedset\NestedSet;
 
 return new class extends Migration
 {
@@ -14,19 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('attributes', function (Blueprint $table) {
+        Schema::create('attribute_values', function (Blueprint $table) {
             $table->id();
+
             $table->string('name');
 
-            $table->foreignId('category_id');
-            $table->foreign('category_id')
+            $table->foreignId('attribute_id')->nullable();
+            $table->foreign('attribute_id')
                 ->references('id')
-                ->on('categories')
+                ->on('attributes')
                 ->onUpdate('cascade');
-
             $table->timestamps();
         });
-        DB::statement('ALTER TABLE attributes ADD COLUMN attribute_type_id integer[] NULL');
     }
 
     /**
@@ -36,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attributes');
+        Schema::dropIfExists('attribute_values');
     }
 };

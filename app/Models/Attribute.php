@@ -4,13 +4,14 @@ namespace App\Models;
 
 use App\Casts\Json;
 use App\Models\Category;
-use Kalnoy\Nestedset\NodeTrait;
+use App\Models\AttributeValue;
+use App\Models\AttributeType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Attribute extends Model
 {
-    use HasFactory, NodeTrait;
+    use HasFactory;
     protected $fillable = [
         'id',
         'name',
@@ -27,5 +28,18 @@ class Attribute extends Model
 
     public function category() {
         return $this->belongsTo(Category::class);
+    }
+
+    public function attributeTypes() {
+        return $this->hasMany(AttributeType::class, 'attribute_type_id', 'id');
+    }
+
+    public function attributeValues() {
+        return $this->hasMany(AttributeValue::class);
+    }
+
+    public function getLatestRecord()
+    {
+        return $this->newQuery()->latest('updated_at')->first();
     }
 }

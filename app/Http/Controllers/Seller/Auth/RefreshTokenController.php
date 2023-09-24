@@ -7,7 +7,7 @@ use App\Http\Tasks\Auth\RefreshTokenTask;
 
 class RefreshTokenController extends Controller
 {
-    public function handle()
+    public function __invoke()
     {
         $data = resolve(RefreshTokenTask::class)->handle();
         return $data;

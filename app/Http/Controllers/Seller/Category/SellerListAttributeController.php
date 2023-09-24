@@ -13,7 +13,7 @@ class SellerListAttributeController extends Controller
      * @param SellerListAttributeRequest $request
      * @return mixed
      */
-    public function handle(SellerListAttributeRequest $request)
+    public function __invoke(SellerListAttributeRequest $request)
     {
         $data = resolve(SellerListAttributeAction::class)->setRequest($request)->handle();
         return $data;

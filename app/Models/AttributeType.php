@@ -11,9 +11,6 @@ class AttributeType extends Model
     protected $fillable = [
         'id',
         'name',
-        'list_units',
-        'created_by',
-        'updated_by',
     ];
 
 

@@ -30,23 +30,14 @@ class AdminCreateAttributeAction extends BaseAction
     public function handle()
     {
         $data = $this->request->all();
-        $dataInsert = Common::getDataInsert($data, false);
 
         if(!empty($data['attribute_type_ids'])){
-            $dataInsert['attribute_type_id'] =  DB::raw("'{" . implode(",", $data['attribute_type_ids']) . "}'");
-            unset($dataInsert['attribute_type_ids']);
+            $data['attribute_type_id'] =  DB::raw("'{" . implode(",", $data['attribute_type_ids']) . "}'");
+            unset($data['attribute_type_ids']);
         }
 
-        $attribute = new Attribute($dataInsert);
-
-        if(!empty($data['parent_id'])){
-            $parentId = $data['parent_id'];
-            $parentAttribute = Attribute::find($parentId);
-            $parentAttribute->appendNode($attribute);
-        }
-
-        $attribute->save();
-        $attribute = $this->attributeRepository->findWhereIn('id', [$attribute->id]);
+        $attributeId = $this->attributeRepository->insertGetId($data, false);
+        $attribute = $this->attributeRepository->find($attributeId);
         return $this->setMessage('create_success', 'attribute', null, $attribute);
     }   
 }

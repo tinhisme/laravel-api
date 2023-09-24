@@ -37,7 +37,7 @@
     "attributes": [
       {
         "attribute_id": 100272,
-        "custom_value": {
+        "custom_value": {{1,2,3,4}
           "raw_value": "6969",
           "unit": "mAh"
         }
@@ -59,7 +59,7 @@
           "raw_value": "69",
           "unit": "MP"
         }
-      },
+      },{1,2,3,4}
       {
         "attribute_id": 100370,
         "attribute_value_id": 5576
@@ -105,7 +105,7 @@
       },
       {
         "attribute_id": 100513,
-        "attribute_value_id": 2898
+        "attribute_value_id": 289{1,2,3,4}8
       },
       {
         "attribute_id": 100507,

@@ -8,7 +8,7 @@ use App\Http\Requests\User\Auth\UserRegisterRequest;
 
 class UserRegisterController extends Controller
 {
-    public function handle(UserRegisterRequest $request)
+    public function __invoke(UserRegisterRequest $request)
     {
         $data = resolve(UserRegisterAction::class)->setRequest($request)->handle();
         return $data;
