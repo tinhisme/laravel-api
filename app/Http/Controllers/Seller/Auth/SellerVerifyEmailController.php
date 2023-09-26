@@ -8,7 +8,7 @@ use App\Http\Requests\Seller\Auth\SellerVerifyEmailRequest;
 
 class SellerVerifyEmailController extends Controller
 {
-    public function handle(SellerVerifyEmailRequest $request)
+    public function __invoke(SellerVerifyEmailRequest $request)
     {
         $data = resolve(SellerVerifyEmailAction::class)->setRequest($request)->handle();
         return $data;

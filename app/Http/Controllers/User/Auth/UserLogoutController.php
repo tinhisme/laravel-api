@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class UserLogoutController extends Controller
 {
 
-    public function handle()
+    public function __invoke()
     {
         auth()->logout();
 

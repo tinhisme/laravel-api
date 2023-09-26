@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use App\Exceptions\AuthenticateException;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Illuminate\Support\Facades\DB;
 
 
 class Common
@@ -100,5 +101,21 @@ class Common
         } catch (\Throwable $e) {
             Log::error($e);
         }
+    }
+
+    /**
+     * Get array ids from request
+     * @param \Illuminate\Support\Collection $request
+     * @return array
+     */
+    public static function getArrIDInsert($request)
+    {
+        $qtyDataInsert = count($request->all()['data']);
+        $arrID = [];
+        $lastIDInsert = DB::getPdo()->lastInsertId();
+        for ($i = 0; $i < $qtyDataInsert; $i++) {
+            $arrID[] = $lastIDInsert - $i;
+        }
+        return $arrID;
     }
 }

@@ -12,7 +12,7 @@ class AdminLoginController extends Controller
      * @param AdminLoginRequest $request
      * @return mixed
      */
-    public function handle(AdminLoginRequest $request)
+    public function __invoke(AdminLoginRequest $request)
     {
         $data = resolve(AdminLoginAction::class)->setRequest($request)->handle();
         return $data;

@@ -13,7 +13,7 @@ class UserListCategoryController extends Controller
      * @param UserListCategoryRequest $request
      * @return mixed
      */
-    public function handle(UserListCategoryRequest $request)
+    public function __invoke(UserListCategoryRequest $request)
     {
         $data = resolve(UserListCategoryAction::class)->setRequest($request)->handle();
         return $data;

@@ -8,7 +8,7 @@ use App\Http\Requests\User\Auth\UserVerifyEmailRequest;
 
 class UserVerifyEmailController extends Controller
 {
-    public function handle(UserVerifyEmailRequest $request)
+    public function __invoke(UserVerifyEmailRequest $request)
     {
         $data = resolve(UserVerifyEmailAction::class)->setRequest($request)->handle();
         return $data;

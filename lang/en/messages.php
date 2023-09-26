@@ -2,11 +2,13 @@
 
 return [
     'attribute' => [
-        'category' => 'category'
+        'category' => 'category',
+        'attribute_type' => 'attribute type',
+        'attribute' => 'attribute',
     ],
     'action' => [
-        'create_success' => 'Created :attribute success',
-        'update_success' => 'Updated :attribute success',
-        'delete_success' => 'Deleted :attribute success',
+        'create_success' => 'Create :attribute success',
+        'update_success' => 'Update :attribute success',
+        'delete_success' => 'Delete :attribute success',
     ],
 ];
