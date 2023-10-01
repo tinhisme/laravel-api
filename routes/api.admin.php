@@ -20,7 +20,7 @@ Route::group([
 
     Route::group([
         'namespace' => 'Admin\Category',
-        'prefix' => 'category', 
+        'prefix' => 'category',
     ], function () {
         Route::post('/', 'AdminCreateCategoryController');
         Route::get('/', 'AdminListCategoryController');

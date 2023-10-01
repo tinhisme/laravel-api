@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Exceptions\AuthenticateException;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\ValidationException;
 
 class ChangePasswordTask
@@ -21,7 +22,7 @@ class ChangePasswordTask
     {
         $data = $request->all();
         $account = Auth::user();
-        
+
         if (!Hash::check($data['current_password'], $account->password)) {
             throw AuthenticateException::updatePasswordFail();
         }
@@ -31,6 +32,7 @@ class ChangePasswordTask
 
         $account->save();
         return [
+            'message' => Lang::get('success.auth.change_password_success'),
             'data' => $account
         ];
     }

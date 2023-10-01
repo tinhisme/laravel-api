@@ -60,4 +60,9 @@ class AuthenticateException extends BaseException
     {
         return self::code('errors.user_not_found_with_email');
     }
+
+    public static function invalidEmailConfirm()
+    {
+        return self::code('errors.invalid_email_comfirm');
+    }
 }

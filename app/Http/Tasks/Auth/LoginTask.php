@@ -32,11 +32,11 @@ class LoginTask
                 'email' => $credentials['email']
             ])
             ->first();
-    
+
         if (!$user) {
-            throw AuthenticateException::invalidCredentials();
+            throw AuthenticateException::invalidEmailConfirm();
         }
-            
+
         $token = $this->handleLogin($credentials);
 
         $userInfo = [
@@ -44,7 +44,7 @@ class LoginTask
             'email' => $user->getAttribute('email'),
             'name' => $user->getAttribute('name'),
         ];
-     
+
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
@@ -53,7 +53,7 @@ class LoginTask
         ]);
     }
 
-        /**
+    /**
      * @param array $credentials
      * @return string
      */
@@ -61,7 +61,7 @@ class LoginTask
     {
         $token = auth()->attempt($credentials);
         if (!$token) {
-            return '';
+            throw AuthenticateException::invalidCredentials();
         }
         return $token;
     }

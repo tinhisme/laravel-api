@@ -30,13 +30,12 @@ class ForgotPasswordTask
         ], [
             'token' => Str::random(60),
         ]);
-        
+
         $encryptEmail = Crypt::encryptString($user->getAttribute('email'));
-        
-        $redirectUrl = $url. '?email=' . $encryptEmail . '&token=' . $passwordReset->token;
-        dd($redirectUrl);
+
+        $redirectUrl = $url. 'reset-password' .'?email=' . $encryptEmail . '&token=' . $passwordReset->token;
         $expiredTime = Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->addHours(24)->format('Y/m/d H:i:s');
-        
+
         $response = $this->sendResetLink($user->getAttribute('email'), $user->getAttribute('name'), $redirectUrl, $expiredTime);
 
         if ($response) {
@@ -57,12 +56,12 @@ class ForgotPasswordTask
     {
         try {
             $sendResetPassowrd = new SendResetPasswordEmail($email, $name, $redirectUrl, $expiredTime);
-            
+
             SendResetPasswordJob::dispatch(
                 $email,
                 $name,
                 $redirectUrl,
-                $expiredTime, 
+                $expiredTime,
                 $sendResetPassowrd
             );
 
