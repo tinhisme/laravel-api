@@ -3,7 +3,6 @@
 namespace App\Http\Tasks\Auth;
 
 use Carbon\Carbon;
-use App\Models\Role;
 use Illuminate\Support\Str;
 use App\Models\PasswordReset;
 use App\Jobs\SendResetPasswordJob;
@@ -24,7 +23,6 @@ class ForgotPasswordTask
     public function handle($user, $request)
     {
         $roleName = $user->getRelationValue('role')->name;
-        $url = $roleName == Role::ROLE_USER ? config('common.user_site_url') : config('common.seller_site_url');
         $passwordReset = PasswordReset::updateOrCreate([
             'email' => $user->getAttribute('email'),
         ], [
@@ -33,7 +31,7 @@ class ForgotPasswordTask
 
         $encryptEmail = Crypt::encryptString($user->getAttribute('email'));
 
-        $redirectUrl = $url. 'reset-password' .'?email=' . $encryptEmail . '&token=' . $passwordReset->token;
+        $redirectUrl = config('common.client_site_url') . 'reset-password' .'?email=' . $encryptEmail . '&token=' . $passwordReset->token;
         $expiredTime = Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->addHours(24)->format('Y/m/d H:i:s');
 
         $response = $this->sendResetLink($user->getAttribute('email'), $user->getAttribute('name'), $redirectUrl, $expiredTime);
