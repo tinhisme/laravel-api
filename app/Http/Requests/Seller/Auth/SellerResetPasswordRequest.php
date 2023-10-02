@@ -26,7 +26,7 @@ class SellerResetPasswordRequest extends FormRequest
         return [
             'email' => 'required',
             'token' => 'required|string',
-            'password' => ['required','min:6','max:20','confirmed','string']
+            'password' => ['required','min:8','max:20','confirmed','string']
         ];
     }
 }
