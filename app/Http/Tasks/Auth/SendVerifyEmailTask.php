@@ -19,9 +19,8 @@ class SendVerifyEmailTask
 
     public function handle($dataUser)
     {
-        $url = $dataUser['role_id'] == Role::USER ? config('common.user_site_url') : config('common.seller_site_url');
         $tokenVerify = $dataUser['token_verify'];
-        $urlVerify = $url . 'verify-email?token='. $tokenVerify.'&email='.$dataUser['email'];
+        $urlVerify = config('common.site_url') . 'verify-email?token='. $tokenVerify.'&email='.$dataUser['email'];
 
         $verifyEmail = new SendVerifyEmail($urlVerify, $dataUser['email'], $dataUser['name']);
 
@@ -34,6 +33,6 @@ class SendVerifyEmailTask
         return [
             'messages' => 'Sending mail.'
         ];
-        
+
     }
 }

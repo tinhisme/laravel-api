@@ -21,13 +21,12 @@ class LoginTask
     {
         $this->userRepository = $userRepository;
     }
-    public function handle($request, $roleId)
+    public function handle()
     {
         $credentials = request(['email', 'password']);
 
         $user = $this->userRepository
             ->where([
-                'role_id' => $roleId,
                 'isValid' => true,
                 'email' => $credentials['email']
             ])
@@ -40,7 +39,7 @@ class LoginTask
         $token = $this->handleLogin($credentials);
 
         $userInfo = [
-            'role_id' => $user->getAttribute('role_id'),
+            'role' => $user->getRelationValue('role'),
             'email' => $user->getAttribute('email'),
             'name' => $user->getAttribute('name'),
         ];
