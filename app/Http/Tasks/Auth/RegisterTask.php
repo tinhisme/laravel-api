@@ -22,33 +22,31 @@ class RegisterTask
     {
         $this->userRepository = $userRepository;
     }
-    public function handle($request, $roleId)
+    public function handle($request)
     {
-
-        
         $dataUser = request(['name', 'email']);
         $dataUser['password'] = Hash::make($request['password']);
-        $dataUser['role_id'] = $roleId;
+        $dataUser['role_id'] = $request['role_id'];
         $dataUser['token_verify'] = Str::random(40);
 
         DB::beginTransaction();
         DB::enableQueryLog();
 
         $userId = $this->userRepository->insertGetId($dataUser, false);
-        
+
         if(!$userId){
             return 'errror';
         }
-        
+
         $user = $this->userRepository->findByField('id', $userId)->first();
         // logic send email verify user after register account
         resolve(SendVerifyEmailTask::class)->handle($dataUser);
-        
+
         DB::commit();
         return response()->json([
             'success' => true,
             'message' => 'user registration successfully',
             'user' => $user
         ], 201);
-    }   
+    }
 }
