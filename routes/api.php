@@ -23,9 +23,6 @@ Route::group([
         Route::get('/me', 'GetMeController');
     });
 
-
-});
-
     Route::group([
         'namespace' => 'App\Http\Controllers\Category',
         'prefix' => 'category',
@@ -42,4 +39,16 @@ Route::group([
         Route::get('/attribute', 'ListAttributeController');
         Route::get('/attribute-type', 'ListAttributeTypeController');
     });
-// });
+
+    Route::group([
+        'namespace' => 'App\Http\Controllers\Product',
+        'prefix' => 'product',
+    ], function () {
+        Route::post('/', 'CreateProductController');
+        Route::get('/', 'DetailProductController');
+
+    });
+
+});
+
+
