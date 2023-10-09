@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->integer('weight')->nullable();
-            $table->integer('status')->nullable();
+            $table->integer('status')->default(1);
             $table->json('attributes')->nullable();
             $table->json('tier_variation')->nullable();
             $table->json('demension')->nullable();
