@@ -2,11 +2,12 @@
 
 namespace App\Http\Actions\Product;
 
+use App\Models\Attribute;
 use App\Http\Shared\Actions\BaseAction;
 use App\Repositories\ProductRepository;
+use App\Exceptions\AuthenticateException;
 use App\Repositories\AttributeRepository;
 use App\Repositories\AttributeValueRepository;
-use App\Models\Attribute;
 
 class DetailProductAction extends BaseAction
 {
@@ -32,6 +33,11 @@ class DetailProductAction extends BaseAction
         $id = $this->request['id'];
 
         $product = $this->productRepository->where(['id' => $id])->first();
+
+        if(is_null($product)){
+            throw AuthenticateException::recordNotFound();
+        }
+
         $attributes = [];
 
         foreach ($product->attributes as $attribute) {

@@ -1,10 +1,11 @@
-<?php 
+<?php
 
 return [
     'attribute' => [
         'category' => 'category',
         'attribute_type' => 'attribute type',
         'attribute' => 'attribute',
+        'product' => 'product',
     ],
     'action' => [
         'create_success' => 'Create :attribute success',

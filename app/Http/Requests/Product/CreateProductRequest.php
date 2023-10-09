@@ -23,18 +23,19 @@ class CreateProductRequest extends FormRequest
      */
     public function rules()
     {
+        $userId = auth()->user()->id;
         return [
-            'name' => 'required|string',
-            'description' => 'nullable|string',
+            'name' => "required|unique:products,name,NULL,id,user_id,$userId",
+            'description' => 'required|string|min:20',
             'images' => 'required',
             'images.*' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-            'videos.*' => 'nullable|image',
+            'videos.' => 'nullable|image',
             'weight' => 'required|integer',
             'category_id' => 'required|integer|exists:categories,id',
-            'attributes' => 'nullable',
-            'tier_variation' => 'nullable|array',
-            'demension' => 'nullable|array',
-            'model_list' => 'nullable|array',
+            'attributes' => 'nullable|json',
+            'tier_variation' => 'nullable|json',
+            'demension' => 'nullable|json',
+            'model_list' => 'nullable|json',
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\Json;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,7 +16,7 @@ class Product extends Model
         'name',
         'description',
         'images',
-        'videos',
+        'list_videos',
         'weight',
         'attributes',
         'tier_variation',
@@ -29,12 +30,12 @@ class Product extends Model
     ];
 
     protected $casts = [
-        'attributes' => 'json',
+        'attributes' => 'array',
         'tier_variation' => 'array',
         'demension' => 'array',
         'model_list' => 'array',
+        'list_images' => Json::class
     ];
-
 
     public function getLatestRecord()
     {

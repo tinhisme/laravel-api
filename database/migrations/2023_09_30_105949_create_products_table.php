@@ -44,8 +44,8 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-        DB::statement('ALTER TABLE products ADD COLUMN images text[] NULL');
-        DB::statement('ALTER TABLE products ADD COLUMN videos text[] NULL');
+        DB::statement('ALTER TABLE products ADD COLUMN list_images text[] NULL');
+        DB::statement('ALTER TABLE products ADD COLUMN list_videos text[] NULL');
 
     }
 
