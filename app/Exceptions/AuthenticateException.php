@@ -65,4 +65,9 @@ class AuthenticateException extends BaseException
     {
         return self::code('errors.invalid_email_comfirm');
     }
+
+    public static function recordNotFound()
+    {
+        return self::code('errors.record_not_found');
+    }
 }

@@ -94,7 +94,7 @@ class Handler extends ExceptionHandler
                 $statusCode = HttpStatusCode::HTTP_UNAUTHORIZED;
                 $messageCode = 'session.not_found';
                 break;
-            
+
             case $exception instanceof AuthorizationException:
                 $message = 'Forbidden Access to this resource on the server is denied';
                 $statusCode = HttpStatusCode::HTTP_FORBIDDEN;
@@ -118,7 +118,7 @@ class Handler extends ExceptionHandler
                 $message = 'server has been maintain!';
                 $statusCode = HttpStatusCode::HTTP_SERVICE_UNAVAILABLE;
                 break;
-                
+
             case $exception instanceof BaseException:
                 $message = $exception->getMessage();
                 $messageCode = method_exists($exception, 'getMessageCode') ? $exception->getMessageCode() : null;

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->integer('weight')->nullable();
-            $table->integer('status')->nullable();
+            $table->integer('status')->default(1);
             $table->json('attributes')->nullable();
             $table->json('tier_variation')->nullable();
             $table->json('demension')->nullable();
@@ -44,8 +44,8 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-        DB::statement('ALTER TABLE products ADD COLUMN images text[] NULL');
-        DB::statement('ALTER TABLE products ADD COLUMN videos text[] NULL');
+        DB::statement('ALTER TABLE products ADD COLUMN list_images text[] NULL');
+        DB::statement('ALTER TABLE products ADD COLUMN list_videos text[] NULL');
 
     }
 

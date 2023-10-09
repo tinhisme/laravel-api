@@ -7,5 +7,6 @@ return [
     'token_expired' => 'Sorry, your token expired',
     'update_pw_fail' => 'Password current invalid',
     'cant_access_this_page' => 'Cant access this page',
-    'invalid_email_comfirm' => 'Please check and verify your email to confirm your account'
+    'invalid_email_comfirm' => 'Please check and verify your email to confirm your account',
+    'record_not_found' =>'Record not found, please try again'
 ];

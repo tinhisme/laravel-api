@@ -61,7 +61,7 @@ class Common
             $data['created_by'] = Auth::id();
             $data['updated_by'] = Auth::id();
         }
-        
+
         return $data;
     }
 
@@ -77,7 +77,7 @@ class Common
             $data['created_by'] = Auth::id();
             $data['updated_by'] = Auth::id();
         }
-        
+
         return $data;
     }
 
@@ -101,6 +101,22 @@ class Common
         } catch (\Throwable $e) {
             Log::error($e);
         }
+    }
+
+    /**
+     * @param string $pathImage
+     * @param string $folder
+     * @return array
+     */
+    public static function uploadMultiImage($images, $folder)
+    {
+        foreach ($images as $image) {
+            $extension = $image->getClientOriginalExtension();
+            $filename = rand() . '' . time() . '.' . $extension;
+            $image->move($folder, $filename);
+            $image_path[] = $folder . $filename;
+        }
+        return $image_path;
     }
 
     /**

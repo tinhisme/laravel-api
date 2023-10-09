@@ -38,15 +38,19 @@ Route::group([
 
         Route::get('/attribute', 'ListAttributeController');
         Route::get('/attribute-type', 'ListAttributeTypeController');
+
+        Route::get('/get-category-of-user', 'ListCategoryOfUserController');
     });
 
     Route::group([
         'namespace' => 'App\Http\Controllers\Product',
         'prefix' => 'product',
     ], function () {
-        Route::post('/', 'CreateProductController');
         Route::get('/', 'DetailProductController');
-
+        Route::get('/', 'ListProductController');
+        Route::post('/', 'CreateProductController');
+        Route::put('/', 'UpdateProductController');
+        Route::delete('/', 'DeleteProductController');
     });
 
 });

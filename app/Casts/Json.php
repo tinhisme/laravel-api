@@ -1,9 +1,9 @@
 <?php
- 
+
 namespace App\Casts;
- 
+
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
- 
+
 class Json implements CastsAttributes
 {
     /**
@@ -17,9 +17,9 @@ class Json implements CastsAttributes
      */
     public function get($model, $key, $value, $attributes)
     {
-        return $value == null ? null : array_map('intval', explode(',', trim($value, '{}')));
+        return $value == null ? null : explode(',', trim($value, '{}'));
     }
- 
+
     /**
      * Prepare the given value for storage.
      *

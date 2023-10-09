@@ -32,7 +32,6 @@ class CreateCategoryAction extends BaseAction
     {
         $data = $this->request->all();
 
-        // get url image from clouldinary
         if(isset($data['image'])){
             $pathImage = $this->request['image']->getRealPath() ?? null;
             $folder = config('common.cloudinary.folder_categories');
