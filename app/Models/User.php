@@ -10,6 +10,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Cart;
 
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail{
     use HasApiTokens, HasFactory, Notifiable;
@@ -79,5 +80,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail{
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
     }
 }

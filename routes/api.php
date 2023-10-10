@@ -53,6 +53,14 @@ Route::group([
         Route::delete('/', 'DeleteProductController');
     });
 
+
+    Route::group([
+        'namespace' => 'App\Http\Controllers\Cart',
+        'prefix' => 'cart',
+    ], function () {
+        Route::post('/', 'CreateCartController');
+    });
+
 });
 
 

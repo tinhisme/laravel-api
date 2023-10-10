@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->integer('weight')->nullable();
             $table->integer('status')->default(1);
+            $table->integer('stock');
+            $table->float('price');
             $table->json('attributes')->nullable();
             $table->json('tier_variation')->nullable();
             $table->json('demension')->nullable();

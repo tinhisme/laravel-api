@@ -36,6 +36,8 @@ class CreateProductRequest extends FormRequest
             'tier_variation' => 'nullable|json',
             'demension' => 'nullable|json',
             'model_list' => 'nullable|json',
+            'stock' => 'required',
+            'price' => 'required',
         ];
     }
 }
