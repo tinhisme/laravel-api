@@ -59,6 +59,8 @@ Route::group([
         'prefix' => 'cart',
     ], function () {
         Route::post('/', 'CreateCartController');
+        Route::put('/', 'UpdateCartController');
+        Route::get('/', 'GetCartController');
     });
 
 });
